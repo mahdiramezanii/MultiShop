@@ -4,18 +4,14 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 class UserManager(BaseUserManager):
     def create_user(self, phone, password=None):
-        """
-        Creates and saves a User with the given email, date of
-        birth and password.
-        """
+
         if not phone:
-            raise ValueError('Users must have an email address')
+            raise ValueError('Users must have an phone number')
 
         user = self.model(
             phone=phone,
 
         )
-
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -39,7 +35,6 @@ class User(AbstractBaseUser):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
-        unique=True,
     )
     phone=models.CharField(max_length=20,unique=True)
     is_active = models.BooleanField(default=True)
@@ -62,3 +57,14 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class Otc(models.Model):
+    token=models.CharField(max_length=250,null=True)
+    phone=models.CharField(max_length=11)
+    code=models.IntegerField()
+    expiration_date=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+
+        return self.phone
