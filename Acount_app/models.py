@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
@@ -63,7 +64,7 @@ class Otc(models.Model):
     token=models.CharField(max_length=250,null=True)
     phone=models.CharField(max_length=11)
     code=models.IntegerField()
-    expiration_date=models.DateTimeField(auto_now_add=True)
+    expiration_date=models.DateTimeField(default=timezone.timedelta(minutes=2))
 
     def __str__(self):
 

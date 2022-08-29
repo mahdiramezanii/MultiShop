@@ -67,6 +67,8 @@ class OtcCodeView(View):
                 otc=Otc.objects.get(token=token)
                 user=User.objects.create_user(phone=otc.phone)
                 login(request,user)
+            else:
+                form.add_error("code","code is current")
 
         return render(request,"Acount_app/otc_code.html",{"form":form})
 
