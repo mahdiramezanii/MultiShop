@@ -11,8 +11,14 @@ def check_number(value):
 
 
 class LoginForm(forms.Form):
-    username=forms.CharField(validators=[validators.MaxLengthValidator(11)],widget=forms.TextInput(attrs={"class":"input100","placeholder":"Username"}))
-    password=forms.CharField(widget=forms.PasswordInput(attrs={"class":"input100","placeholder":"Password"}))
+    username=forms.CharField(validators=[validators.MaxLengthValidator(11)],widget=forms.TextInput(attrs={
+        "class":"input100",
+        "placeholder":"Username"
+    }))
+    password=forms.CharField(widget=forms.PasswordInput(attrs={
+        "class":"input100",
+        "placeholder":"Password"
+    }))
 
     def clean(self):
         cd=self.cleaned_data
@@ -26,9 +32,8 @@ class LoginForm(forms.Form):
 
 
 
-
 class RegisterForm(forms.Form):
-    phone=forms.CharField(max_length=12,validators=[check_number],widget=forms.TextInput(attrs={
+    phone=forms.CharField(max_length=12,validators=[check_number,validators.MaxLengthValidator(11),validators.MinLengthValidator(11)],widget=forms.TextInput(attrs={
         "class":"input100",
         "placeholder":"Phone Number"
     }))

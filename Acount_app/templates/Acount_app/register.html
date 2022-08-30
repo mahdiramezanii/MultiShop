@@ -54,10 +54,24 @@
                 {% endif %}
 
 
+
+
+
                 <div class="wrap-input100 validate-input" data-validate="Username is required">
                     {{ form.phone}}
                     <span class="focus-input100"></span>
                 </div>
+
+           {% if form.phone.errors %}
+
+                    {% for e in form.phone.errors %}
+
+                        <span class="alert alert-danger form-control text text-center">{{ e }}</span>
+
+                    {% endfor %}
+
+                {% endif %}
+
 
                 <div class="container-login100-form-btn m-t-17">
                     <button class="login100-form-btn">
