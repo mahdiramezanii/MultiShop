@@ -64,7 +64,14 @@ class Otc(models.Model):
     token=models.CharField(max_length=250,null=True)
     phone=models.CharField(max_length=11)
     code=models.IntegerField()
-    expiration_date=models.DateTimeField(default=timezone.timedelta(minutes=2))
+    expiration_date=models.DateTimeField(default=timezone.now()+timezone.timedelta(minutes=2))
+
+    def is_expiration_date(self):
+
+        if self.expiration_date > timezone.now():
+            return True
+        else:
+            return False
 
     def __str__(self):
 

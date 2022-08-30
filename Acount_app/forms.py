@@ -26,11 +26,21 @@ class LoginForm(forms.Form):
 
 
 
+
 class RegisterForm(forms.Form):
-    phone=forms.CharField(validators=[check_number],widget=forms.TextInput(attrs={
+    phone=forms.CharField(max_length=12,validators=[check_number],widget=forms.TextInput(attrs={
         "class":"input100",
         "placeholder":"Phone Number"
     }))
+
+    def clean(self):
+        phone = self.cleaned_data.get("phone")
+
+        if User.objects.filter(phone=phone).exists():
+
+            raise ValidationError("Number is avalible in Site")
+        else:
+            return super(RegisterForm, self).clean()
 
 
 class OtcCodeForms(forms.Form):
@@ -38,6 +48,10 @@ class OtcCodeForms(forms.Form):
         "class":"input100",
         "placeholder":"Enter Code..."
     }))
+    
+    
+
+            
 
 
 # class RegisterForm(forms.Form):

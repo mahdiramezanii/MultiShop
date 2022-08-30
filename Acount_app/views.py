@@ -7,6 +7,7 @@ from django.views.generic.base import View
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 import ghasedakpack
+from django.utils import timezone
 
 SMS = ghasedakpack.Ghasedak("1dd33ef4c344cdaffb310154439cb9bbfe4a8301ad0bfa894117acc4b190164a")
 
@@ -37,8 +38,9 @@ class RegisterView(View):
         if form.is_valid():
             phone=form.cleaned_data.get("phone")
             random_number=randint(1000,2000)
-            token=get_random_string(length=200)
-            SMS.verification({'receptor': phone,'type': '1','template': 'MultyShop','param1': random_number})
+            print(random_number)
+            token=get_random_string(length=30)
+            #SMS.verification({'receptor': phone,'type': '1','template': 'MultyShop','param1': random_number})
             Otc.objects.create(phone=phone,code=random_number,token=token)
 
             return redirect(reverse("Acount_app:otc")+f"?token={token}")
@@ -55,7 +57,6 @@ class RegisterView(View):
 
 class OtcCodeView(View):
 
-
     def post(self,request):
         form=OtcCodeForms(data=request.POST)
 
@@ -65,8 +66,13 @@ class OtcCodeView(View):
 
             if Otc.objects.filter(code=code,token=token).exists():
                 otc=Otc.objects.get(token=token)
-                user=User.objects.create_user(phone=otc.phone)
-                login(request,user)
+
+                if otc.is_expiration_date():
+
+                    user=User.objects.create_user(phone=otc.phone)
+                    return redirect("Home_app:Home")
+                else:
+                    form.add_error("code", "code is current")
             else:
                 form.add_error("code","code is current")
 
@@ -74,11 +80,16 @@ class OtcCodeView(View):
 
     def get(self,request):
         form=OtcCodeForms()
-
-
         return render(request,"Acount_app/otc_code.html",{"form":form})
 
 
+
+class LogOutView(View):
+
+    def get(self,request):
+
+        logout(request)
+        return redirect("Home_app:Home")
 
 # def register_user(request):
 #     form=RegisterForm()

@@ -42,6 +42,18 @@
 					</span>
 
 
+
+                {% if form.non_field_errors %}
+
+                    {% for e in form.non_field_errors %}
+
+                        <span class="alert alert-danger form-control text text-center">{{ e }}</span>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
                 <div class="wrap-input100 validate-input" data-validate="Username is required">
                     {{ form.phone}}
                     <span class="focus-input100"></span>
