@@ -14,13 +14,34 @@
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
                 <div class="btn-group">
+
+                    {% if request.user.is_authenticated %}
+
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
+                            {{ request.user.phone }}
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="{% url "Acount_app:logout" %}">
+                                <button class="dropdown-item" type="button">Logout</button>
+                            </a>
+
+                        </div>
+
+                    {% else %}
+
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
                         Account
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{% url "Acount_app:login" %}"><button class="dropdown-item" type="button">Sign in</button></a>
-                        <a href="{% url "Acount_app:register" %}"><button class="dropdown-item" type="button">Sign up</button></a>
+                        <a href="{% url "Acount_app:login" %}">
+                            <button class="dropdown-item" type="button">Sign in</button>
+                        </a>
+                        <a href="{% url "Acount_app:register" %}">
+                            <button class="dropdown-item" type="button">Sign up</button>
+                        </a>
                     </div>
+                    {% endif %}
                 </div>
                 <div class="btn-group mx-2">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD
