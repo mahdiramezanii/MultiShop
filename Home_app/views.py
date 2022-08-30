@@ -1,6 +1,16 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,ListView,View
+from Product_app.models import Product,Category
 
-class Home(TemplateView):
-    template_name = "Home_app/index.html"
+class Home(View):
+
+    def get(self,request):
+        category=Category.objects.all()
+        context={
+            "category":category,
+        }
+
+
+        return render(request,"Home_app/index.html",context=context)
+
 

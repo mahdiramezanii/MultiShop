@@ -5,7 +5,7 @@ from Acount_app.models import User
 class Category(models.Model):
     name=models.CharField(max_length=50)
     image=models.ImageField(upload_to="product/category")
-    parent=models.ForeignKey("self",related_name="comment",on_delete=models.CASCADE)
+    parent=models.ForeignKey("self",related_name="comment",on_delete=models.CASCADE,null=True,blank=True)
     created=models.DateTimeField(auto_now_add=True)
 
 
