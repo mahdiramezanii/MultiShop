@@ -70,3 +70,18 @@ class Product(models.Model):
 
         return self.name
 
+
+class Comment(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="comment")
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="comment")
+    name=models.CharField(max_length=50,null=True,blank=True)
+    email=models.EmailField(null=True,blank=True)
+    body=models.TextField()
+    parent=models.ForeignKey("self",on_delete=models.CASCADE,related_name="replay",null=True,blank=True)
+    creted=models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+
+        return self.body[:35]
+
