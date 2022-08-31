@@ -42,6 +42,7 @@ class ProductImageGallery(models.Model):
 
 class Product(models.Model):
     name=models.CharField(max_length=200)
+    discription=models.TextField()
     image=models.ImageField(upload_to="product/image")
     price=models.CharField(max_length=50)
     size=models.ManyToManyField(Size,related_name="product")
