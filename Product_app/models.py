@@ -85,3 +85,28 @@ class Comment(models.Model):
 
         return self.body[:35]
 
+class Cart(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="cart")
+    is_paid=models.BooleanField(default=False)
+    paid_date=models.DateTimeField(null=True,blank=True)
+    total_price=models.CharField(default="0",max_length=50)
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+
+class CartDetail(models.Model):
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE,related_name="cart_detail")
+    product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="cart_detail")
+    price=models.CharField(max_length=50,default="0")
+    color=models.CharField(max_length=50)
+    size=models.CharField(max_length=50,null=True)
+    count=models.IntegerField()
+
+
+    def __str__(self):
+
+        return self.product.name
+
+
+

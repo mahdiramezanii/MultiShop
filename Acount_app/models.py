@@ -3,6 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.utils import timezone
 
 
+
 class UserManager(BaseUserManager):
     def create_user(self, phone, password=None):
 
@@ -46,10 +47,7 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'phone'
 
     def get_full_name(self):
-
-        full_name=self.first_name+" "+self.last_name
-
-        return full_name
+        return f"{self.first_name} {self.last_name}"
 
     def __str__(self):
         return self.email

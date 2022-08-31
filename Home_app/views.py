@@ -24,7 +24,7 @@ class DetailProduct(DetailView):
         product=Product.objects.get(slug=slug)
         user=request.user
         body=request.POST.get("body")
-        Comment.objects.create(user=user,body=body,product=product)
+        Comment.objects.create(user=user,body=body,product=product,name=user.get_full_name(),email=user.email)
 
         return redirect(reverse("Home_app:detail",kwargs={"slug":slug}))
 

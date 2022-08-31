@@ -183,7 +183,7 @@
 
                                     {% for comment in object.comment.all %}
                                     <div class="media mb-4">
-                                        <img src="{% static "img/user.jpg" %}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                        <img src="{{ request.user.image.url }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                         <div class="media-body">
                                             <h6>{{ comment.name }}<small> - <i>{{ comment.created }}</i></small></h6>
                                             <div class="text-primary mb-2">
