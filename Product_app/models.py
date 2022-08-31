@@ -1,6 +1,8 @@
 from django.db import models
 from Acount_app.models import User
 from django.utils import timezone
+from django.utils.text import slugify
+from django.urls import reverse
 
 class Category(models.Model):
     name=models.CharField(max_length=50)
@@ -52,7 +54,17 @@ class Product(models.Model):
     category=models.ManyToManyField(Category,related_name="product")
     created=models.DateTimeField(auto_now_add=True)
     image_galeery=models.ManyToManyField(ProductImageGallery,related_name="product")
+    slug=models.SlugField(null=True,blank=True)
 
+
+    def get_absolut_url(self):
+
+        return reverse("Home_app:detail",kwargs={"slug":self.slug})
+
+    def save(self,*args,**kwargs):
+        self.slug=slugify(self.name)
+
+        super(Product,self).save(*args,**kwargs)
 
     def __str__(self):
 
