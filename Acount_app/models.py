@@ -35,6 +35,9 @@ class User(AbstractBaseUser):
         max_length=255,
     )
     phone=models.CharField(max_length=20,unique=True)
+    image=models.ImageField(upload_to="Acount/image",null=True,blank=True)
+    first_name=models.CharField(max_length=150,null=True,blank=True)
+    last_name=models.CharField(max_length=150,null=True,blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -42,6 +45,11 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD = 'phone'
 
+    def get_full_name(self):
+
+        full_name=self.first_name+" "+self.last_name
+
+        return full_name
 
     def __str__(self):
         return self.email
