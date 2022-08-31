@@ -1,6 +1,6 @@
 from django.db import models
 from Acount_app.models import User
-
+from django.utils import timezone
 
 class Category(models.Model):
     name=models.CharField(max_length=50)
@@ -13,14 +13,44 @@ class Category(models.Model):
 
         return self.name
 
+class Color(models.Model):
+    name=models.CharField(max_length=50)
+    created=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+
+        return self.name
+
+class Size(models.Model):
+    s=[
+        ('Larg', 'L'),
+        ('Mediom', 'M'),
+        ('Small', 'S'),
+        ('Xlarg', 'XL'),
+        ('XXLarg', 'XXL'),
+        ('XXXLarg', 'XXXL'),
+    ]
+    name=models.CharField(max_length=50,choices=s)
+
+
+    def __str__(self):
+        return self.name
+
+class ProductImageGallery(models.Model):
+    image=models.ImageField(upload_to="product/image/gallery")
+    created=models.DateTimeField(auto_now_add=True)
+
 class Product(models.Model):
     name=models.CharField(max_length=200)
     image=models.ImageField(upload_to="product/image")
     price=models.CharField(max_length=50)
+    size=models.ManyToManyField(Size,related_name="product")
+    color=models.ManyToManyField(Color,related_name="product")
     discount=models.CharField(max_length=50,null=True,blank=True)
-    score=models.IntegerField(null=True)
+    score=models.IntegerField(null=True,default=0)
     category=models.ManyToManyField(Category,related_name="product")
     created=models.DateTimeField(auto_now_add=True)
+    image_galeery=models.ManyToManyField(ProductImageGallery,related_name="product")
 
 
     def __str__(self):

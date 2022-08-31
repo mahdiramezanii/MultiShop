@@ -70,6 +70,7 @@ class OtcCodeView(View):
                 if otc.is_expiration_date():
 
                     user=User.objects.create_user(phone=otc.phone)
+
                     return redirect("Home_app:Home")
                 else:
                     form.add_error("code", "code is current")
