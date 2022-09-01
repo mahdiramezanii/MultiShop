@@ -37,13 +37,13 @@ class DetailProduct(DetailView):
             user = request.user
 
             if Cart.objects.filter(user=user).exists():
-                cart = Cart.objects.all().last()
+                cart = Cart.objects.filter(user=user).last()
                 CartDetail.objects.create(cart=cart, product=product, price=product.price, color=color, size=size,
                                           count=count)
-                return redirect("Home_app:Home")
+                return redirect(reverse("Home_app:detail", kwargs={"slug": slug}))
 
             else:
                 cart = Cart.objects.create(user=user)
-                CartDetail.objects.create(cart=cart, product=product, price=product.price, color=color, size=size,
+                CartDetail.objects.create(cart=cart,product=product, price=product.price, color=color, size=size,
                                           count=count)
-                return redirect("Home_app:Home")
+                return redirect(reverse("Home_app:detail", kwargs={"slug": slug}))
