@@ -31,9 +31,9 @@
                         </div>
 
                         {% for image in object.image_galeery.all %}
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="{{ image.image.url }}" alt="Image">
-                        </div>
+                            <div class="carousel-item">
+                                <img class="w-100 h-100" src="{{ image.image.url }}" alt="Image">
+                            </div>
                         {% endfor %}
 
                     </div>
@@ -63,48 +63,53 @@
                     <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit
                         clita ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea
                         Nonumy</p>
-                    <div class="d-flex mb-3">
-                        <strong class="text-dark mr-3">Sizes:</strong>
-                        <form>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex mb-3">
+
+                            <strong class="text-dark mr-3">Sizes:</strong>
+
                             {% for s in object.size.all %}
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-{{ s.id }}" name="size">
-                                <label class="custom-control-label" for="size-{{ s.id }}">{{ s.name }}</label>
-                            </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="size-{{ s.id }}" value="{{ s.name }}" name="size">
+                                    <label class="custom-control-label" for="size-{{ s.id }}">{{ s.name }}</label>
+                                </div>
                             {% endfor %}
 
-                        </form>
-                    </div>
-                    <div class="d-flex mb-4">
-                        <strong class="text-dark mr-3">Colors:</strong>
-                        <form>
+
+                        </div>
+                        <div class="d-flex mb-4">
+                            <strong class="text-dark mr-3">Colors:</strong>
+
                             {% for c in object.color.all %}
 
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-{{ c.id }}" name="color">
-                                <label class="custom-control-label" for="color-{{ c.id }}">{{ c.name }}</label>
-                            </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="{{ c.id }}"  value="{{ c.name }}" name="color">
+                                    <label class="custom-control-label" for="{{ c.id }}">{{ c.name }}</label>
+                                </div>
                             {% endfor %}
 
-                        </form>
-                    </div>
-                    <div class="d-flex align-items-center mb-4 pt-2">
-                        <div class="input-group quantity mr-3" style="width: 130px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
+
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                            Cart</button>
-                    </div>
+                        <div class="d-flex align-items-center mb-4 pt-2">
+                            <div class="input-group quantity mr-3" style="width: 130px;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-minus" type="button">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control bg-secondary border-0 text-center" name="count" value="1">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-plus" type="button">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary px-3" type="submit"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                                Cart
+                            </button>
+                        </div>
+                    </form>
                     <div class="d-flex pt-2">
                         <strong class="text-dark mr-2">Share on:</strong>
                         <div class="d-inline-flex">
@@ -129,7 +134,8 @@
             <div class="col">
                 <div class="bg-light p-30">
                     <div class="nav nav-tabs mb-4">
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab"
+                           href="#tab-pane-1">Description</a>
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
                     </div>
@@ -140,7 +146,14 @@
                         </div>
                         <div class="tab-pane fade" id="tab-pane-2">
                             <h4 class="mb-3">Additional Information</h4>
-                            <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
+                            <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
+                                invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
+                                consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum
+                                diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam
+                                sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor
+                                aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam
+                                kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea
+                                invidunt.</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <ul class="list-group list-group-flush">
@@ -156,7 +169,7 @@
                                         <li class="list-group-item px-0">
                                             Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
                                         </li>
-                                      </ul> 
+                                    </ul>
                                 </div>
                                 <div class="col-md-6">
                                     <ul class="list-group list-group-flush">
@@ -172,7 +185,7 @@
                                         <li class="list-group-item px-0">
                                             Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
                                         </li>
-                                      </ul> 
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -182,25 +195,28 @@
                                     <h4 class="mb-4">1 review for "Product Name"</h4>
 
                                     {% for comment in object.comment.all %}
-                                    <div class="media mb-4">
-                                        <img src="{{ request.user.image.url }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                        <div class="media-body">
-                                            <h6>{{ comment.name }}<small> - <i>{{ comment.created }}</i></small></h6>
-                                            <div class="text-primary mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                                <i class="far fa-star"></i>
+                                        <div class="media mb-4">
+                                            <img src="{{ request.user.image.url }}" alt="Image"
+                                                 class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <div class="media-body">
+                                                <h6>{{ comment.name }}<small> - <i>{{ comment.created }}</i></small>
+                                                </h6>
+                                                <div class="text-primary mb-2">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                                <p>{{ comment.body }}</p>
                                             </div>
-                                            <p>{{ comment.body }}</p>
                                         </div>
-                                    </div>
                                     {% endfor %}
                                 </div>
                                 <div class="col-md-6">
                                     <h4 class="mb-4">Leave a review</h4>
-                                    <small>Your email address will not be published. Required fields are marked *</small>
+                                    <small>Your email address will not be published. Required fields are marked
+                                        *</small>
                                     <div class="d-flex my-3">
                                         <p class="mb-0 mr-2">Your Rating * :</p>
                                         <div class="text-primary">
@@ -215,7 +231,8 @@
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <label for="message">Your Review *</label>
-                                            <textarea id="message" cols="30" rows="5" class="form-control" name="body"></textarea>
+                                            <textarea id="message" cols="30" rows="5" class="form-control"
+                                                      name="body"></textarea>
                                         </div>
 
                                         <div class="form-group mb-0">
@@ -235,7 +252,8 @@
 
     <!-- Products Start -->
     <div class="container-fluid py-5">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span></h2>
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span>
+        </h2>
         <div class="row px-xl-5">
             <div class="col">
                 <div class="owl-carousel related-carousel">
@@ -243,7 +261,8 @@
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                        class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -252,7 +271,10 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                <h5>$123.00</h5>
+                                <h6 class="text-muted ml-2">
+                                    <del>$123.00</del>
+                                </h6>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
                                 <small class="fa fa-star text-primary mr-1"></small>
@@ -268,7 +290,8 @@
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                        class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -277,7 +300,10 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                <h5>$123.00</h5>
+                                <h6 class="text-muted ml-2">
+                                    <del>$123.00</del>
+                                </h6>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
                                 <small class="fa fa-star text-primary mr-1"></small>
@@ -293,7 +319,8 @@
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                        class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -302,7 +329,10 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                <h5>$123.00</h5>
+                                <h6 class="text-muted ml-2">
+                                    <del>$123.00</del>
+                                </h6>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
                                 <small class="fa fa-star text-primary mr-1"></small>
@@ -318,7 +348,8 @@
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                        class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -327,7 +358,10 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                <h5>$123.00</h5>
+                                <h6 class="text-muted ml-2">
+                                    <del>$123.00</del>
+                                </h6>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
                                 <small class="fa fa-star text-primary mr-1"></small>
@@ -343,7 +377,8 @@
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                        class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -352,7 +387,10 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                <h5>$123.00</h5>
+                                <h6 class="text-muted ml-2">
+                                    <del>$123.00</del>
+                                </h6>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
                                 <small class="fa fa-star text-primary mr-1"></small>
