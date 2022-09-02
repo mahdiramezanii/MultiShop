@@ -36,7 +36,7 @@ class User(AbstractBaseUser):
         max_length=255,
     )
     phone=models.CharField(max_length=20,unique=True)
-    image=models.ImageField(upload_to="Acount/image",null=True,blank=True)
+    image=models.ImageField(upload_to="Acount/image",null=True,blank=True,default="Acount/image/default.png")
     first_name=models.CharField(max_length=150,null=True,blank=True)
     last_name=models.CharField(max_length=150,null=True,blank=True)
     is_active = models.BooleanField(default=True)
