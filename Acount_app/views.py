@@ -30,7 +30,7 @@ class LoginView(View):
 
         return render(request, "Acount_app/login.html",{"form":form})
 
-class RegisterView(View):
+class RegisterLoginView(View):
 
     def post(self,request):
         form=RegisterForm(data=request.POST)
@@ -69,8 +69,9 @@ class OtcCodeView(View):
 
                 if otc.is_expiration_date():
 
-                    user=User.objects.create_user(phone=otc.phone)
-
+                    user,is_exisit=User.objects.get_or_create(phone=otc.phone)
+                    login(request,user)
+                    otc.delete()
                     return redirect("Home_app:Home")
                 else:
                     form.add_error("code", "code is current")

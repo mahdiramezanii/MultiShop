@@ -38,14 +38,14 @@ class RegisterForm(forms.Form):
         "placeholder":"Phone Number"
     }))
 
-    def clean(self):
-        phone = self.cleaned_data.get("phone")
-
-        if User.objects.filter(phone=phone).exists():
-
-            raise ValidationError("Number is avalible in Site")
-        else:
-            return super(RegisterForm, self).clean()
+    # def clean(self):
+    #     phone = self.cleaned_data.get("phone")
+    #
+    #     if User.objects.filter(phone=phone).exists():
+    #
+    #         raise ValidationError("Number is avalible in Site")
+    #     else:
+    #         return super(RegisterForm, self).clean()
 
 
 class OtcCodeForms(forms.Form):
