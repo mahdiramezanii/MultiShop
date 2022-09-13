@@ -108,5 +108,14 @@ class CartDetail(models.Model):
 
         return self.product.name
 
+class Favorite(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="favorite")
+    prodoct=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="favorite")
+
+
+    def __str__(self):
+
+        return self.prodoct.name
+
 
 

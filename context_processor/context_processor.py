@@ -1,4 +1,4 @@
-from Product_app.models import Cart,CartDetail
+from Product_app.models import Cart,CartDetail,Favorite
 
 def count_cart_detail(request):
 
@@ -13,3 +13,20 @@ def count_cart_detail(request):
             return {"detail_count":0}
     else:
         return {"detail_count":0}
+
+
+def count_favorite(request):
+
+    if request.user.is_authenticated:
+
+        if Favorite.objects.filter(user=request.user).exists():
+            favorite=Favorite.objects.filter(user=request.user).count()
+
+            return {"favorite_count":favorite}
+        else:
+
+            return {"favorite_count": 0}
+
+    else:
+
+        return {"favorite_count":0}

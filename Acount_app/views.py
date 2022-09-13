@@ -93,26 +93,6 @@ class LogOutView(View):
         logout(request)
         return redirect("Home_app:Home")
 
-# def register_user(request):
-#     form=RegisterForm()
-#
-#     if request.method=="POST":
-#         form=RegisterForm(data=request.POST)
-#
-#         if form.is_valid():
-#             cd=form.cleaned_data
-#             username=cd.get("username")
-#             email=cd.get("email")
-#             password1=cd.get("password1")
-#             user=User.objects.create(phone=username,email=email,password=password1)
-#             user.set_password(password1)
-#             user.is_active=False
-#             user.save()
-#             return redirect("Acount_app:login")
-#
-#         return render(request,"Acount_app/register.html",{"form":form})
-#
-#     return render(request,"Acount_app/register.html",{"form":form})
 
 
 
