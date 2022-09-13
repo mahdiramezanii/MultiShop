@@ -20,7 +20,7 @@ class LoginView(View):
             username=cd.get("username")
             password=cd.get("password")
             user=authenticate(username=username,password=password)
-            login(request,user)
+            login(request,user,backend="Acount_app.authentication.EmailAuthBackend")
             return redirect("/")
 
         return render(request,"Acount_app/login.html",{"form":form})
@@ -70,7 +70,7 @@ class OtcCodeView(View):
                 if otc.is_expiration_date():
 
                     user,is_exisit=User.objects.get_or_create(phone=otc.phone)
-                    login(request,user)
+                    login(request,user,backend="Acount_app.authentication.EmailAuthBackend")
                     otc.delete()
                     return redirect("Home_app:Home")
                 else:
